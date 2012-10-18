@@ -1,0 +1,518 @@
+#Experience holds ways to give players experience. It is divided into Entity and Player, and Hit, and Kill.
+#Each holds a number being the amount of experience to be given.
+#The Entity Kill place may also be Kill Equation making an equation using the entities level for x (see Equations below). This require MobStats.
+#Player Levels holds an equation that calculates the required exp to level up using the players CURENT level as the value of x.
+#Arrows are setup using the FULL NAME of the arrow.
+#Level is the required level that a player must be for that arrow.
+#There are several equations (see below) for arrows all using the shooters level as the value of x. They are:
+#  Speed: The speed that the arrow travels at.
+#  Damage: The damge that the arrow itself deals.
+#  Duration: Only on arrows that apply effects (Blind, Confusion, Poison, Slow, and Weakness). The amount of time the effect last.
+#  Amplification: Only on arrows that apply effects. The amplification for the effect (makes it stronger).
+#Power is used only on arrows that explode and is the power of the explosion. A power of 4 is TNT.
+#Bow Cost is a list of items in the form of "id, amount" exactly that defines how much it costs to make a bow shoot that arrow. Bows are required to be held for this to work.
+#Cost is made the same as bow costs except it removes that only when a bow is shot. An arrow is not mandatory for cost but one will be needed to shoot.
+#Equations have six types and work very similarly.
+#The equations are:
+#  Quadratic: An equation in the form of ax^2 + bx + c. Set a to 0 to make the equation linear. Set a and b to 0 for a constant value.
+#  QWD: The same as a quadratic equation but including the charater 'd' at the end of the number to have it be multiplied by the default value in the situation.
+#  QMD: The same as a quadratic but the whole equation is multiplied by the default value.
+#  Exponential: This is an equation in the form of a(b^(c(x - d))) + f.
+#  EWD: The same as QWD but the equation used is Exponential. The format is the same.
+#  EMD: The same as QMD but the equation used is Exponential.
+#All equations contain a maximum(max) and minimum(min) value but these are optional.
+#Kill Equations, Player Levels, Duration, and Amplification should not be of types QMD, QWD, EWD, or EMD since these have no default value.
+#If an arrow is not included, it will be disabled.
+
+Experience:
+  Entity:
+    Kill Equation: 
+      type: Quadratic
+      min: 0
+      a: 0
+      b: 2
+      c: 1
+    Hit: 0.5
+  Player:
+    Kill: 10
+    Hit: 1
+Player Levels:
+  type: Quadratic
+  min: 0
+  a: 0
+  b: 15
+  c: 0
+  
+Blind Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Duration:
+      type: Quadratic
+      a: 0
+      b: 0
+      c: 40
+    Amplification:
+      type: Quadratic
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 38, 3
+  Cost:
+    - 262, 1
+    - 38, 1
+Confusion Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Duration:
+      type: Quadratic
+      a: 0
+      b: 0
+      c: 40
+    Amplification:
+      type: Quadratic
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 32, 3
+  Cost:
+    - 262, 1
+    - 32, 1
+Creeper Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 377, 1
+  Cost:
+    - 262, 1
+    - 375, 1
+Explosive Lightning Arrow:
+  Level: 0
+  Power: 4
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 265, 3
+  Cost:
+    - 262, 1
+    - 265, 1
+Fiery Explosive Lightning Arrow:
+  Level: 0
+  Power: 4
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 264, 1
+  Cost:
+    - 262, 1
+    - 264, 1
+Fiery Lightning Arrow:
+  Level: 0
+  Power: 4
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 15, 2
+  Cost:
+    - 262, 1
+    - 15, 1
+Fiery TNT Arrow:
+  Level: 0
+  Power: 4
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 266, 1
+  Cost:
+    - 262, 1
+    - 266, 1
+Fire Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 259, 1
+  Cost:
+    - 262, 1
+    - 263, 1
+Iron Golem Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 86, 1
+  Cost:
+    - 262, 1
+    - 86, 1
+    - 42, 2
+Lava Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 4, 3
+  Cost:
+    - 262, 1
+    - 327, 1
+Lightning Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 259, 1
+  Cost:
+    - 262, 1
+    - 263, 1
+Normal Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Cost:
+    - 262, 1
+Poison Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 375, 1
+  Cost:
+    - 262, 1
+    - 375, 1
+Redstone Torch Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 331, 5
+  Cost:
+    - 262, 1
+    - 76, 1
+Skeleton Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 352, 3
+  Cost:
+    - 262, 1
+    - 352, 1
+Slow Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 353, 3
+  Cost:
+    - 262, 1
+    - 353, 1
+Snowman Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 332, 5
+  Cost:
+    - 262, 1
+    - 332, 2
+TNT Arrow:
+  Level: 0
+  Power: 4
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 289, 2
+    - 12, 2
+  Cost:
+    - 262, 1
+    - 289, 1
+TP Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 288, 3
+  Cost:
+    - 262, 1
+    - 288, 1
+Torch Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 50, 2
+  Cost:
+    - 262, 1
+    - 50, 1
+Tree Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 17, 3
+  Cost:
+    - 262, 1
+    - 6, 1
+Triple Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 287, 1
+  Cost:
+    - 262, 3
+Water Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 111, 3
+  Cost:
+    - 262, 1
+    - 326, 1
+Weakness Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 337, 3
+  Cost:
+    - 262, 1
+    - 337, 1
+Zombie Arrow:
+  Level: 0
+  Equations:
+    Speed:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+    Damage:
+      type: QMD
+      a: 0
+      b: 0
+      c: 1
+  Bow Cost:
+    - 267, 1
+  Cost:
+    - 262, 1
+    - 267, 1

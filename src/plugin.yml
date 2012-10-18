@@ -1,0 +1,11 @@
+name: ArrowPro
+version: 1.0
+main: arrowpro.ArrowPro
+authors: [Gamerguy14]
+load: STARTUP
+loadbefore: [MobStats]
+commands:
+  arrowpro:
+    aliases: ap
+    description: Handles all commands for the plugin.
+    usage: /ap [command] <arguments>
