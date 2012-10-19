@@ -1,7 +1,8 @@
 package arrowpro.arrow;
 
+import arrowpro.lightning.ProLightning;
+
 import net.minecraft.server.Entity;
-import net.minecraft.server.EntityLightning;
 
 /**
  * Explodes and strikes lightning where it hits.
@@ -20,7 +21,7 @@ public class ExplosiveLightningArrow extends ProArrowAction {
     @Override
     public void inGround(ProArrow arrow) {
         if (!hasGone) {
-            EntityLightning light = new EntityLightning(arrow.world, arrow.locX, arrow.locY, arrow.locZ);
+           ProLightning light = new ProLightning(arrow.world, arrow, arrow.locX, arrow.locY, arrow.locZ);
             arrow.world.strikeLightning(light);
             arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, false);
             hasGone = true;
@@ -31,7 +32,7 @@ public class ExplosiveLightningArrow extends ProArrowAction {
     @Override
     public void entityHit(ProArrow arrow, Entity entity) {
         if (!hasGone) {
-            EntityLightning light = new EntityLightning(entity.world, entity.locX, entity.locY, entity.locZ);
+            ProLightning light = new ProLightning(entity.world, arrow, entity.locX, entity.locY, entity.locZ);
             arrow.world.strikeLightning(light);
             arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, false);
             hasGone = true;

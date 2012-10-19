@@ -155,25 +155,6 @@ Fiery Explosive Lightning Arrow:
   Cost:
     - 262, 1
     - 264, 1
-Fiery Lightning Arrow:
-  Level: 0
-  Power: 4
-  Equations:
-    Speed:
-      type: QMD
-      a: 0
-      b: 0
-      c: 1
-    Damage:
-      type: QMD
-      a: 0
-      b: 0
-      c: 1
-  Bow Cost:
-    - 15, 2
-  Cost:
-    - 262, 1
-    - 15, 1
 Fiery TNT Arrow:
   Level: 0
   Power: 4
@@ -262,10 +243,10 @@ Lightning Arrow:
       b: 0
       c: 1
   Bow Cost:
-    - 259, 1
+    - 15, 2
   Cost:
     - 262, 1
-    - 263, 1
+    - 15, 1
 Normal Arrow:
   Level: 0
   Equations:

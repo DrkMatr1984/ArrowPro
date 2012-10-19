@@ -204,6 +204,15 @@ public class ProArrow extends EntityArrow {
     }
     
     /**
+     * Gets the Entity that shot this arrow.
+     * 
+     * @return The entity that shot this arrow.
+     */
+    public Entity getShooter() {
+        return shooter;
+    }
+    
+    /**
      * Calls the method a (float, float) from the super type.
      * 
      * @param f

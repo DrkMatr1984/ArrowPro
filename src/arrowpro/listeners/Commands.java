@@ -97,13 +97,13 @@ public class Commands implements CommandExecutor {
             return true;
         }
         if (ArrowType.isAnArrow(args[0])) {
-            if (plugin.isDisabled(ArrowType.fromName(args[1])) || plugin.isDisabled(ArrowType.fromAbbreviation(args[1]))) {
+            if (plugin.isDisabled(ArrowType.fromName(args[0])) || plugin.isDisabled(ArrowType.fromAbbreviation(args[0]))) {
                 sender.sendMessage(ChatColor.RED + "This type of arrow is not allowed.");
                 return true;
             }
             if (sender instanceof Player) {
                 CraftPlayer player = (CraftPlayer) sender;
-                ArrowType type = ArrowType.fromName(args[1]) == null ? ArrowType.fromAbbreviation(args[1].toLowerCase()) : ArrowType.fromName(args[1]);
+                ArrowType type = ArrowType.fromName(args[0]) == null ? ArrowType.fromAbbreviation(args[0].toLowerCase()) : ArrowType.fromName(args[0]);
                 if (!player.hasPermission("arrowpro." + ArrowType.abbreviate(type.getName())) && !player.hasPermission("arrowpro.*") && !player.hasPermission("*")) {
                     sender.sendMessage(ChatColor.RED + "You don't have permission.");
                     return true;

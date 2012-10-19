@@ -244,6 +244,10 @@ public class ArrowPro extends JavaPlugin {
      * @param player The player that killed the entity.
      */
     public void killedEntity(Player player, Entity killed) {
+        if (killed.getBukkitEntity() instanceof Player) {
+            killedPlayer(player);
+            return;
+        }
         if (useMobStats) {
             if (killed instanceof StatsEntity) {
                 exp.put(player.getName(), exp.get(player.getName()) + mobExpDrop.solve(((StatsEntity) killed).getLevel(), 1));

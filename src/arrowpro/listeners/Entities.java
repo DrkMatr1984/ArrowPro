@@ -3,17 +3,22 @@ package arrowpro.listeners;
 import arrowpro.ArrowPro;
 import arrowpro.arrow.ArrowType;
 import arrowpro.arrow.ProArrow;
+import arrowpro.lightning.ProLightning;
 
 import net.minecraft.server.EntityArrow;
 import net.minecraft.server.EntityLiving;
 
 import org.bukkit.ChatColor;
 import org.bukkit.craftbukkit.entity.CraftArrow;
+import org.bukkit.craftbukkit.entity.CraftEntity;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityShootBowEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -60,5 +65,27 @@ public class Entities implements Listener {
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerJoin(PlayerJoinEvent event) {
         plugin.getLevel(((CraftPlayer) event.getPlayer()).getHandle());
+    }
+    
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onEntityDeath(EntityDeathEvent event) {
+        if (!(event.getEntity().getLastDamageCause() instanceof EntityDamageByEntityEvent)) {
+            return;
+        }
+        EntityDamageByEntityEvent ev = (EntityDamageByEntityEvent) event.getEntity().getLastDamageCause();
+        if (ev.getCause().equals(DamageCause.ENTITY_EXPLOSION)) {
+            if (((CraftEntity) ev.getDamager()).getHandle() instanceof ProArrow) {
+                if (ev.getEntity().isDead() && ((ProArrow) ((CraftEntity) ev.getDamager()).getHandle()).getShooter().getBukkitEntity() instanceof Player) {
+                    plugin.killedEntity((Player) ((ProArrow) ((CraftEntity) ev.getDamager()).getHandle()).getShooter().getBukkitEntity(), ((CraftEntity) event.getEntity()).getHandle());
+                }
+            }
+        }
+        if (ev.getCause().equals(DamageCause.LIGHTNING)) {
+            if (ev.getDamager() instanceof ProLightning) {
+                if (ev.getEntity().isDead() && ((ProArrow) ((ProLightning) ev.getDamager()).getArrow()).getShooter().getBukkitEntity() instanceof Player) {
+                    plugin.killedEntity((Player) ((ProArrow) ((ProLightning) ev.getDamager()).getArrow()).getShooter().getBukkitEntity(), ((CraftEntity) event.getEntity()).getHandle());
+                }
+            }
+        }
     }
 }
