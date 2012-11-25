@@ -6,7 +6,6 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import net.minecraft.server.PlayerInventory;
 

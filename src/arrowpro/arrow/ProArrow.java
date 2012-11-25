@@ -16,6 +16,7 @@ import net.minecraft.server.MovingObjectPosition;
 import net.minecraft.server.Vec3D;
 
 import net.minecraft.server.World;
+
 import org.bukkit.entity.Player;
 
 /**
@@ -31,7 +32,7 @@ public class ProArrow extends EntityArrow {
     protected ProArrowAction arrow;
     protected float speed;
     private boolean inGround;
-    private int an = 0;
+    private int as = 0;
     
     public ProArrow(World world) {
         super(world);
@@ -89,7 +90,7 @@ public class ProArrow extends EntityArrow {
 
             if (shooter instanceof Player) {
                 int level = ArrowPro.getPlugin().getLevel(shooter);
-                this.b(arrow.getDamage(level, this.d()));
+                this.b(arrow.getDamage(level, this.c()));
                 speed = arrow.getSpeed(level, speed);
             }
             
@@ -117,7 +118,7 @@ public class ProArrow extends EntityArrow {
         this.motY = (double) (-MathHelper.sin(this.pitch / 180.0F * 3.1415927F));
         if (shooter instanceof Player) {
             int level = ArrowPro.getPlugin().getLevel(shooter);
-            this.b(arrow.getDamage(level, this.d()));
+            this.b(arrow.getDamage(level, this.c()));
             speed = arrow.getSpeed(level, speed);
         }
         this.shoot(this.motX, this.motY, this.motZ, speed * 1.5F, 1.0F);
@@ -130,21 +131,22 @@ public class ProArrow extends EntityArrow {
     }
     
     @Override
-    public void h_() {
-        super.h_();
+    public void j_() {
         updateFields();
+        super.j_();
         if (inGround) {
             arrow.inGround(this);
         }
         else {
-            Vec3D vec3d = Vec3D.a().create(this.locX, this.locY, this.locZ);
-            Vec3D vec3d1 = Vec3D.a().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+            this.as += 1;
+            Vec3D vec3d = this.world.getVec3DPool().create(this.locX, this.locY, this.locZ);
+            Vec3D vec3d1 = this.world.getVec3DPool().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
             MovingObjectPosition movingobjectposition = this.world.rayTrace(vec3d, vec3d1, false, true);
 
-            vec3d = Vec3D.a().create(this.locX, this.locY, this.locZ);
-            vec3d1 = Vec3D.a().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
+            vec3d = this.world.getVec3DPool().create(this.locX, this.locY, this.locZ);
+            vec3d1 = this.world.getVec3DPool().create(this.locX + this.motX, this.locY + this.motY, this.locZ + this.motZ);
             if (movingobjectposition != null) {
-                vec3d1 = Vec3D.a().create(movingobjectposition.pos.a, movingobjectposition.pos.b, movingobjectposition.pos.c);
+                vec3d1 = this.world.getVec3DPool().create(movingobjectposition.pos.c, movingobjectposition.pos.d, movingobjectposition.pos.e);
             }
 
             Entity entity = null;
@@ -152,20 +154,18 @@ public class ProArrow extends EntityArrow {
             double d0 = 0.0D;
             Iterator iterator = list.iterator();
 
-            float f1;
-
             while (iterator.hasNext()) {
-                Entity entity1 = (Entity) iterator.next();
+                Entity entity1 = (Entity)iterator.next();
 
-                if (entity1.L() && (entity1 != this.shooter || this.an >= 5)) {
-                    f1 = 0.3F;
-                    AxisAlignedBB axisalignedbb1 = entity1.boundingBox.grow((double) f1, (double) f1, (double) f1);
+                if ((entity1.L()) && ((entity1 != this.shooter) || (this.as >= 5))) {
+                    float f1 = 0.3F;
+                    AxisAlignedBB axisalignedbb1 = entity1.boundingBox.grow(f1, f1, f1);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb1.a(vec3d, vec3d1);
 
                     if (movingobjectposition1 != null) {
-                        double d1 = vec3d.distanceSquared(movingobjectposition1.pos); // CraftBukkit - distance efficiency
+                        double d1 = vec3d.distanceSquared(movingobjectposition1.pos);
 
-                        if (d1 < d0 || d0 == 0.0D) {
+                        if ((d1 < d0) || (d0 == 0.0D)) {
                             entity = entity1;
                             d0 = d1;
                         }
@@ -201,6 +201,7 @@ public class ProArrow extends EntityArrow {
                 }
             }
         }
+        updateFields();
     }
     
     /**
@@ -229,13 +230,13 @@ public class ProArrow extends EntityArrow {
         try {
             EntityArrow arr = this;
             Field ground = EntityArrow.class.getDeclaredField("inGround");
-            Field and = EntityArrow.class.getDeclaredField("an");
+            Field and = EntityArrow.class.getDeclaredField("as");
             Field dama = EntityArrow.class.getDeclaredField("damage");
             ground.setAccessible(true);
             and.setAccessible(true);
             dama.setAccessible(true);
             inGround = ground.getBoolean(arr);
-            an = and.getInt(arr);
+            as = and.getInt(arr);
             double defDam = dama.getDouble(arr);
             dama.setDouble(arr, arrow.getDamage(ArrowPro.getPlugin().getLevel(shooter), defDam));
         } catch (NoSuchFieldException ex) {

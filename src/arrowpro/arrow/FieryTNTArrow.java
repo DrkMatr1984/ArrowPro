@@ -24,7 +24,7 @@ public class FieryTNTArrow extends ProArrowAction {
     @Override
     public void inGround(ProArrow arrow) {
         if (!hasExploded) {
-            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true);
+            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true, arrow.world.getGameRules().getBoolean("mobGriefing"));
             hasExploded = true;
             arrow.die();
         }
@@ -33,7 +33,7 @@ public class FieryTNTArrow extends ProArrowAction {
     @Override
     public void entityHit(ProArrow arrow, Entity entity) {
         if (!hasExploded) {
-            arrow.world.createExplosion(arrow, entity.locX, entity.locY, entity.locZ, power, true);
+            arrow.world.createExplosion(arrow, entity.locX, entity.locY, entity.locZ, power, true, arrow.world.getGameRules().getBoolean("mobGriefing"));
             hasExploded = true;
             arrow.die();
         }

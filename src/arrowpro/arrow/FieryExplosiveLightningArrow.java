@@ -23,7 +23,7 @@ public class FieryExplosiveLightningArrow extends ProArrowAction {
         if (!hasGone) {
             ProLightning light = new ProLightning(arrow.world, arrow, arrow.locX, arrow.locY, arrow.locZ);
             arrow.world.strikeLightning(light);
-            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true);
+            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true, arrow.world.getGameRules().getBoolean("mobGriefing"));
             hasGone = true;
             arrow.die();
         }
@@ -34,7 +34,7 @@ public class FieryExplosiveLightningArrow extends ProArrowAction {
         if (!hasGone) {
             ProLightning light = new ProLightning(entity.world, arrow, entity.locX, entity.locY, entity.locZ);
             arrow.world.strikeLightning(light);
-            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true);
+            arrow.world.createExplosion(arrow, arrow.locX, arrow.locY, arrow.locZ, power, true, arrow.world.getGameRules().getBoolean("mobGriefing"));
             hasGone = true;
             arrow.die();
         }

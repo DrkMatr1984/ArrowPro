@@ -47,8 +47,8 @@ public class TripleArrow extends ProArrowAction {
         arrow2.motX = (double) (-MathHelper.sin(arrow2.yaw / 180.0F * 3.1415927F) * MathHelper.cos(arrow2.pitch / 180.0F * 3.1415927F));
         arrow2.motZ = (double) (MathHelper.cos(arrow2.yaw / 180.0F * 3.1415927F) * MathHelper.cos(arrow2.pitch / 180.0F * 3.1415927F));
         arrow2.motY = (double) (-MathHelper.sin(arrow2.pitch / 180.0F * 3.1415927F));
-        arrow1.b(arrow.d());
-        arrow2.b(arrow.d());
+        arrow1.b(arrow.c());
+        arrow2.b(arrow.c());
         arrow.world.addEntity(arrow1);
         arrow.world.addEntity(arrow2);
         arrow1.shoot(arrow1.motX, arrow1.motY, arrow1.motZ, arrow.speed * 1.5F, 1.0F);
